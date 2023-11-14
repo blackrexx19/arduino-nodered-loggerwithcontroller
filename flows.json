@@ -1,0 +1,590 @@
+[
+    {
+        "id": "fdf736d6ba8080a2",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "83aee98af36bd23e",
+        "type": "ui_button",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "group": "a61e06e6a4111b5a",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "on",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 70,
+        "y": 100,
+        "wires": [
+            [
+                "088bceb0638c0d92",
+                "e25d82195f12889b",
+                "31e1ec7d65ef38d8",
+                "66e8af93db25e5cf",
+                "df619aba4cd07fa4",
+                "bf6cc89514b82d2a"
+            ]
+        ]
+    },
+    {
+        "id": "088bceb0638c0d92",
+        "type": "serial out",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "serial": "e415714211410783",
+        "x": 310,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "cd3f55d910304d41",
+        "type": "serial in",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "serial": "e415714211410783",
+        "x": 70,
+        "y": 520,
+        "wires": [
+            [
+                "3ec34316e53a3779",
+                "5b4f4deb0990ef3f"
+            ]
+        ]
+    },
+    {
+        "id": "3ec34316e53a3779",
+        "type": "debug",
+        "z": "fdf736d6ba8080a2",
+        "name": "Monitor1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 240,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d73a6b07337723b1",
+        "type": "ui_button",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "group": "a61e06e6a4111b5a",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "off",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 70,
+        "y": 180,
+        "wires": [
+            [
+                "4521c575a1b324b8",
+                "31e1ec7d65ef38d8",
+                "66e8af93db25e5cf",
+                "e25d82195f12889b"
+            ]
+        ]
+    },
+    {
+        "id": "4521c575a1b324b8",
+        "type": "serial out",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "serial": "e415714211410783",
+        "x": 310,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "5b4f4deb0990ef3f",
+        "type": "function",
+        "z": "fdf736d6ba8080a2",
+        "name": "parsing",
+        "func": "let y=0;\nlet dt = [];\nfor(let i = 0; i < msg.payload.length; i++)\n{\n    if(msg.payload[i] == \",\" || msg.payload[i] == \"#\")\n    {\n        y++;\n        dt[y] = \"\";\n    }\n    else\n    {\n        dt[y] = dt[y] + msg.payload[i];\n    }\n}\nmsg.payload=dt;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 560,
+        "wires": [
+            [
+                "e5564846aa46ee6b",
+                "09f657e643da363f"
+            ]
+        ]
+    },
+    {
+        "id": "ef80f8a85b421ba9",
+        "type": "ui_widget_thermometer",
+        "z": "fdf736d6ba8080a2",
+        "group": "a61e06e6a4111b5a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "title": "Suhu",
+        "numColor": 3,
+        "colorTop": "#2196f3",
+        "colorMiddle": "#8bc34a",
+        "colorBottom": "#f44336",
+        "unit": "°C",
+        "scale": "normal",
+        "minTemp": 0,
+        "maxTemp": 100,
+        "minTempMoreThanMaxTemp": "1",
+        "numberOfDecimals": "2",
+        "showPercentage": "1",
+        "currentTempFontSize": "1.2",
+        "x": 530,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "e5564846aa46ee6b",
+        "type": "function",
+        "z": "fdf736d6ba8080a2",
+        "name": "Suhu",
+        "func": "msg.payload=Number(msg.payload[1]);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 560,
+        "wires": [
+            [
+                "ef80f8a85b421ba9"
+            ]
+        ]
+    },
+    {
+        "id": "e25d82195f12889b",
+        "type": "ui_toast",
+        "z": "fdf736d6ba8080a2",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 330,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "31e1ec7d65ef38d8",
+        "type": "ui_led",
+        "z": "fdf736d6ba8080a2",
+        "order": 2,
+        "group": "a61e06e6a4111b5a",
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "off",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "on",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 290,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "66e8af93db25e5cf",
+        "type": "ui_text",
+        "z": "fdf736d6ba8080a2",
+        "group": "a61e06e6a4111b5a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Sistem Status",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 320,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "df619aba4cd07fa4",
+        "type": "change",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "saveData",
+                "pt": "flow",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "014632f9036f7d85",
+        "type": "function",
+        "z": "fdf736d6ba8080a2",
+        "name": "JSON Table",
+        "func": "const dataSuhu = flow.get(\"saveData\") || [];\n\ndataSuhu.push({\n        \"Waktu\"         : new Date().toLocaleString(),\n        \"Suhu\"          : msg.payload[1],\n        \"count\"         : flow.get(\"count\")\n    });\n\n// if(data.length > 5) data.pop();\n\nmsg.payload = dataSuhu;\n\nflow.set(\"saveData\",dataSuhu);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 620,
+        "wires": [
+            [
+                "f2f80449e81daf55",
+                "b2199ebf64758a18"
+            ]
+        ]
+    },
+    {
+        "id": "f2f80449e81daf55",
+        "type": "ui_table",
+        "z": "fdf736d6ba8080a2",
+        "group": "91acf42fb3ca110b",
+        "name": "",
+        "order": 2,
+        "width": "10",
+        "height": "10",
+        "columns": [
+            {
+                "field": "Waktu",
+                "title": "Date / Time",
+                "width": "200",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Suhu",
+                "title": "Suhu (C)",
+                "width": "100",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 730,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "b2199ebf64758a18",
+        "type": "debug",
+        "z": "fdf736d6ba8080a2",
+        "name": "Monitor2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "43f261e74b6564b8",
+        "type": "ui_button",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "group": "a61e06e6a4111b5a",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "label": "RESET",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "on",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 80,
+        "y": 260,
+        "wires": [
+            [
+                "df619aba4cd07fa4"
+            ]
+        ]
+    },
+    {
+        "id": "09f657e643da363f",
+        "type": "trigger",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "pay",
+        "op2type": "nul",
+        "duration": "1",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "on",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 410,
+        "y": 620,
+        "wires": [
+            [
+                "014632f9036f7d85"
+            ]
+        ]
+    },
+    {
+        "id": "6d6cd2b7fc8533d2",
+        "type": "inject",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 570,
+        "y": 660,
+        "wires": [
+            [
+                "f2f80449e81daf55"
+            ]
+        ]
+    },
+    {
+        "id": "612f9e4b4dc5bdd3",
+        "type": "ui_text",
+        "z": "fdf736d6ba8080a2",
+        "group": "91acf42fb3ca110b",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 430,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "be7958ac0a1ba228",
+        "type": "function",
+        "z": "fdf736d6ba8080a2",
+        "name": "Jam Dan Tanngal",
+        "func": "msg.payload = new Date().toLocaleString();\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 360,
+        "wires": [
+            [
+                "612f9e4b4dc5bdd3"
+            ]
+        ]
+    },
+    {
+        "id": "9a77e957d62b730a",
+        "type": "inject",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 360,
+        "wires": [
+            [
+                "be7958ac0a1ba228"
+            ]
+        ]
+    },
+    {
+        "id": "bf6cc89514b82d2a",
+        "type": "delay",
+        "z": "fdf736d6ba8080a2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 440,
+        "wires": [
+            [
+                "09f657e643da363f"
+            ]
+        ]
+    },
+    {
+        "id": "a61e06e6a4111b5a",
+        "type": "ui_group",
+        "name": "Kontrol & Monitor",
+        "tab": "21b7144446200bb7",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e415714211410783",
+        "type": "serial-port",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "91acf42fb3ca110b",
+        "type": "ui_group",
+        "name": "LOGGER",
+        "tab": "21b7144446200bb7",
+        "order": 3,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "21b7144446200bb7",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
